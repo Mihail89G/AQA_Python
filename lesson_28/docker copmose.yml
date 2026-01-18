@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -Q \"SELECT 1\""]
+      interval: 10s
+      retries: 10
+
+  app:
+    build: .
+    container_name: python_app
+    depends_on:
+      mssql:
+        condition: service_healthy
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: pytest -q
