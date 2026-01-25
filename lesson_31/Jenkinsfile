@@ -20,7 +20,7 @@ pipeline {
         stage('Run tests') {
             steps {
                 dir('lesson_31') {
-                    bat '.venv\\Scripts\\pytest -q --alluredir=allure-results tests'
+                    bat '.venv\\Scripts\\pytest -q --alluredir=allure-results test_homework_playwright_26_28_negative.py'
                 }
             }
         }
@@ -34,3 +34,4 @@ pipeline {
         }
     }
 }
+
