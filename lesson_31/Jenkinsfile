@@ -17,6 +17,14 @@ pipeline {
             }
         }
 
+        stage('Install Playwright browsers') {
+            steps {
+                dir('lesson_31') {
+                    bat '.venv\\Scripts\\playwright install'
+                }
+            }
+        }
+
         stage('Run tests') {
             steps {
                 dir('lesson_31') {
@@ -34,4 +42,3 @@ pipeline {
         }
     }
 }
-
